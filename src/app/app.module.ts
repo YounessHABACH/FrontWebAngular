@@ -14,6 +14,7 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { MenuComponent } from './menu/menu.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
+import {DishService} from "./services/dish.service";
 
 const routes: Routes = [
 
@@ -36,7 +37,10 @@ const routes: Routes = [
     MatButtonModule
   ],
   //RouterModule.forRoot(routes),
-  providers: [],
+  providers: [
+    // make it visible in all app compos
+    DishService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

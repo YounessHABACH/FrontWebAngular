@@ -1,11 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Dish} from "../_models/dish";
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
   styleUrls: ['./dishdetail.component.css']
 })
+
 export class DishdetailComponent implements OnInit {
+
+  @Input()
+  dish: Dish | undefined;
 
   constructor() { }
 
