@@ -9,9 +9,10 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
 
 
 export const routes: Routes = [
-  {path: "", component: HomeComponent},
+  {path: "home", component: HomeComponent},
   {path: "menu", component: MenuComponent},
+  {path: "contactus", component: ContactComponent},
   {path: "about", component: AboutComponent},
-  {path: "contact", component: ContactComponent},
+  {path: "", pathMatch: 'full',  redirectTo: "/home"},
   {path: "**", pathMatch: 'full', component: PageNotFoundComponent},
 ]

@@ -1,4 +1,4 @@
-import {Comment} from "../_models/comment";
+import {Comment} from "./comment";
 
 export class Dish {
   id: string | undefined;

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Dish} from "../_models/dish";
+import {Dish} from "../models/dish";
 
 @Component({
   selector: 'app-dishdetail',

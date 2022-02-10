@@ -21,6 +21,7 @@ import { ContactComponent } from './contact/contact.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 // services
 import { DishService } from "./services/dish.service";
+import { PromotionService } from "./services/promotion.service";
 // router
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 
@@ -50,7 +51,8 @@ import { AppRoutingModule } from "./app-routing/app-routing.module";
   //RouterModule.forRoot(routes),
   providers: [
     // make it visible in all app compos
-    DishService
+    DishService,
+    PromotionService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-import {Dish} from "../_models/dish";
+import {Dish} from "../models/dish";
 
 export const DISHES: Dish[] = [
   {
