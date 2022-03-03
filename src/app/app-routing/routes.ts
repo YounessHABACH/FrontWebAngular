@@ -1,6 +1,6 @@
 import {Routes} from "@angular/router";
 // components
-// import { DishdetailComponent } from '../dishdetail/dishdetail.component';
+import { DishdetailComponent } from '../dishdetail/dishdetail.component';
 import { MenuComponent } from '../menu/menu.component';
 import { HomeComponent } from '../home/home.component';
 import { AboutComponent } from '../about/about.component';
@@ -11,6 +11,7 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
 export const routes: Routes = [
   {path: "home", component: HomeComponent},
   {path: "menu", component: MenuComponent},
+  {path: "dishdetail/:id", component: DishdetailComponent},
   {path: "contactus", component: ContactComponent},
   {path: "about", component: AboutComponent},
   {path: "", pathMatch: 'full',  redirectTo: "/home"},

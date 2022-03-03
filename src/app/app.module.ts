@@ -24,6 +24,7 @@ import { DishService } from "./services/dish.service";
 import { PromotionService } from "./services/promotion.service";
 // router
 import { AppRoutingModule } from "./app-routing/app-routing.module";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -37,17 +38,18 @@ import { AppRoutingModule } from "./app-routing/app-routing.module";
     ContactComponent,
     PageNotFoundComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    FlexLayoutModule,
-    MatListModule,
-    MatGridListModule,
-    MatCardModule,
-    MatButtonModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        FlexLayoutModule,
+        MatListModule,
+        MatGridListModule,
+        MatCardModule,
+        MatButtonModule,
+        AppRoutingModule,
+        MatIconModule
+    ],
   //RouterModule.forRoot(routes),
   providers: [
     // make it visible in all app compos
