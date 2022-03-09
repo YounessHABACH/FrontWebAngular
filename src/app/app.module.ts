@@ -24,7 +24,13 @@ import { DishService } from "./services/dish.service";
 import { PromotionService } from "./services/promotion.service";
 // router
 import { AppRoutingModule } from "./app-routing/app-routing.module";
-import {MatIconModule} from "@angular/material/icon";
+import { MatIconModule } from "@angular/material/icon";
+import { LoginComponent } from './login/login.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -36,25 +42,34 @@ import {MatIconModule} from "@angular/material/icon";
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoginComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        FlexLayoutModule,
-        MatListModule,
-        MatGridListModule,
-        MatCardModule,
-        MatButtonModule,
-        AppRoutingModule,
-        MatIconModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    FormsModule
+  ],
   //RouterModule.forRoot(routes),
   providers: [
     // make it visible in all app compos
     DishService,
     PromotionService
+  ],
+  entryComponents: [
+    LoginComponent
   ],
   bootstrap: [AppComponent]
 })
