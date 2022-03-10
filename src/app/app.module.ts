@@ -27,10 +27,12 @@ import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { MatIconModule } from "@angular/material/icon";
 import { LoginComponent } from './login/login.component';
 import { MatDialogModule } from "@angular/material/dialog";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatCheckboxModule} from "@angular/material/checkbox";
-import {FormsModule} from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatSelectModule } from "@angular/material/select";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,7 @@ import {FormsModule} from "@angular/forms";
     AboutComponent,
     ContactComponent,
     PageNotFoundComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,10 @@ import {FormsModule} from "@angular/forms";
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    FormsModule
+    MatSelectModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   //RouterModule.forRoot(routes),
   providers: [
