@@ -16,10 +16,13 @@ export class MenuComponent implements OnInit {
   constructor(private dishService: DishService) { }
 
   ngOnInit(): void {
-    this.dishes = this.dishService.getDishes()
+    this.dishService.getDishes()
+      .then((dishes) => {
+        this.dishes = dishes;
+      })
   }
 
   onSelectDish(dish: Dish) {
-    this.selectedDish = dish
+    this.selectedDish = dish;
   }
 }

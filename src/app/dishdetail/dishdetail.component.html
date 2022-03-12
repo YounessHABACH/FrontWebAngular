@@ -6,6 +6,9 @@
      fxLayoutGap="10px"
      fxLayoutGap.xs="0">
 
+  <div fxFlex [hidden]="dish">
+    <mat-spinner></mat-spinner> <h4>Loading ... Please wait</h4>
+  </div>
   <div *ngIf="dish">
     <div fxFlex="40">
       <mat-card>
@@ -29,7 +32,6 @@
     <div fxFlex="40">
       <div class="container"
            fxLayout="column">
-
         <mat-list fxFlex>
           <h1>Comments</h1>
           <mat-list-item *ngFor="let comment of dish.comments">
