@@ -15,5 +15,5 @@ export const routes: Routes = [
   {path: "contactus", component: ContactComponent},
   {path: "about", component: AboutComponent},
   {path: "", component: HomeComponent},
-  {path: "**", pathMatch: 'full', component: PageNotFoundComponent},
+  // {path: "**", pathMatch: 'full', component: PageNotFoundComponent},
 ]
