@@ -33,6 +33,8 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import {LeaderService} from "./services/leader.service";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -64,6 +66,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     MatCheckboxModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule
   ],
@@ -71,7 +74,8 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
   providers: [
     // make it visible in all app compos
     DishService,
-    PromotionService
+    PromotionService,
+    LeaderService
   ],
   entryComponents: [
     LoginComponent

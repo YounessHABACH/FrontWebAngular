@@ -14,6 +14,6 @@ export const routes: Routes = [
   {path: "dishdetail/:id", component: DishdetailComponent},
   {path: "contactus", component: ContactComponent},
   {path: "about", component: AboutComponent},
-  {path: "", component: ContactComponent},
-  // {path: "**", pathMatch: 'full', component: PageNotFoundComponent},
+  {path: "", component: HomeComponent},
+  {path: "**", pathMatch: 'full', component: PageNotFoundComponent},
 ]
