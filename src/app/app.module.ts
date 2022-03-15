@@ -33,8 +33,11 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import {LeaderService} from "./services/leader.service";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { LeaderService } from "./services/leader.service";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSliderModule } from "@angular/material/slider";
+import { HttpClientModule } from "@angular/common/http";
+import { baseUrl } from "./shared/apiurl"
 
 @NgModule({
   declarations: [
@@ -49,33 +52,36 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     PageNotFoundComponent,
     LoginComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    FlexLayoutModule,
-    MatToolbarModule,
-    MatListModule,
-    MatGridListModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatProgressSpinnerModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+      BrowserModule,
+      BrowserAnimationsModule,
+      AppRoutingModule,
+      FlexLayoutModule,
+      MatToolbarModule,
+      MatListModule,
+      MatGridListModule,
+      MatCardModule,
+      MatButtonModule,
+      MatIconModule,
+      MatDialogModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatCheckboxModule,
+      MatSelectModule,
+      MatSlideToggleModule,
+      MatProgressSpinnerModule,
+      MatSliderModule,
+      FormsModule,
+      ReactiveFormsModule,
+      HttpClientModule
+    ],
   //RouterModule.forRoot(routes),
   providers: [
     // make it visible in all app compos
     DishService,
     PromotionService,
-    LeaderService
+    LeaderService,
+    { provide: 'BaseUrl', useValue: baseUrl }
   ],
   entryComponents: [
     LoginComponent

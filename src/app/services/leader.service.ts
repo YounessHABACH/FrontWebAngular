@@ -4,9 +4,9 @@ import {Leader} from "../models/leader";
 import {Observable, of} from "rxjs";
 import { delay } from "rxjs/operators";
 
-// @Injectable({
-//   providedIn: 'root'
-// })
+@Injectable({
+  providedIn: 'root'
+})
 export class LeaderService {
 
   constructor() { }
@@ -21,7 +21,7 @@ export class LeaderService {
     // })
 
     // @ts-ignore
-    return of(LEADERS).pipe(delay(5000));
+    return of(LEADERS).pipe(delay(0));
   }
 
   getLeader(id: string): Observable<Leader> {
@@ -33,7 +33,7 @@ export class LeaderService {
     //   }, 5000)
     // })
 
-    return of(LEADERS.filter((leader) => leader.id === id)[0]).pipe(delay(5000));
+    return of(LEADERS.filter((leader) => leader.id === id)[0]).pipe(delay(0));
   }
 
   getFeaturedLeader(): Observable<Leader> {
@@ -46,6 +46,6 @@ export class LeaderService {
     // })
 
     // @ts-ignore
-    return of(LEADERS.filter((leader) => leader.featured)[0]).pipe(delay(5000));
+    return of(LEADERS.filter((leader) => leader.featured)[0]).pipe(delay(0));
   }
 }
