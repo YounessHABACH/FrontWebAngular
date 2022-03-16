@@ -12,9 +12,12 @@ import {LeaderService} from "../services/leader.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  dish: Dish | undefined
-  promotion: Promotion | undefined
-  leader: Leader | undefined
+  dish!: Dish
+  dishErrMsg!: string;
+  promotion!: Promotion
+  promotionErrMsg!: string;
+  leader!: Leader
+  leaderErrMsg!: string;
 
   constructor(private dishService: DishService,
               private promotionService: PromotionService,
@@ -32,6 +35,8 @@ export class HomeComponent implements OnInit {
     this.dishService.getFeaturedDish()
       .subscribe((dish) => {
         this.dish = dish;
+      }, error => {
+        this.dishErrMsg = <any> error;
       });
   }
 
@@ -39,6 +44,8 @@ export class HomeComponent implements OnInit {
     this.promotionService.getFeaturedPromotion()
       .subscribe((promotion) => {
         this.promotion = promotion;
+      }, error => {
+        this.promotionErrMsg = <any> error;
       });
   }
 
@@ -46,6 +53,8 @@ export class HomeComponent implements OnInit {
     this.leaderService.getFeaturedLeader()
       .subscribe((leader) => {
         this.leader = leader;
+      }, error => {
+        this.leaderErrMsg = <any> error;
       });
   }
 

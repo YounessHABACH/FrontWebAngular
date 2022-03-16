@@ -11,7 +11,8 @@ import {baseUrl} from "../shared/apiurl";
 
 export class MenuComponent implements OnInit {
 
-  dishes: Dish[] | undefined;
+  dishes!: Dish[];
+  errMsg!: string;
 
   constructor(private dishService: DishService,
               //@ts-ignore
@@ -19,9 +20,13 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.dishService.getDishes()
-      .subscribe((dishes) => {
+      .subscribe(
+        (dishes) => {
         this.dishes = dishes;
-      })
+        }, error => {
+          this.errMsg = <any>error;
+        }
+      )
   }
 
 }

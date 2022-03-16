@@ -2,17 +2,19 @@
 import { Dish } from "../models/dish";
 import { Observable, of} from "rxjs";
 // import { delay } from "rxjs/operators";
-import { map } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { Injectable} from "@angular/core";
-import {baseUrl} from "../shared/apiurl";
+import { baseUrl } from "../shared/apiurl";
+import { ProcessHTTPMsgService } from "./process-httpmsg.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DishService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private processHTTPMsgService: ProcessHTTPMsgService) { }
 
   // getDishes(): Promise<Dish[]> {
   getDishes(): Observable<Dish[]> {
@@ -38,7 +40,9 @@ export class DishService {
     // return of(DISHES).pipe(delay(0));
 
     // using http client
-    return this.http.get<Dish[]>(baseUrl + "dishes")
+    return this.http
+      .get<Dish[]>(baseUrl + "dishes")
+      .pipe(catchError(this.processHTTPMsgService.handleError))
   }
 
   // getDish(id: string): Promise<Dish> {
@@ -61,7 +65,10 @@ export class DishService {
 
 
     // using http client
-    return this.http.get<Dish>(baseUrl + "dishes/" + id)
+    return this.http
+      .get<Dish>(baseUrl + "dishes/" + id)
+      .pipe(catchError(this.processHTTPMsgService.handleError))
+
   }
 
   // getFeaturedDish(): Promise<Dish> {
@@ -81,11 +88,15 @@ export class DishService {
     // return of(DISHES.filter((dish) => dish.featured)[0]).pipe(delay(0));
 
     // using http client
-    return this.http.get<Dish[]>(baseUrl + "dishes/?featured=true").pipe(map(dishes=> dishes[0]))
+    return this.http
+      .get<Dish[]>(baseUrl + "dishees/?featured=true").pipe(map(dishes=> dishes[0]))
+      .pipe(catchError(this.processHTTPMsgService.handleError))
   }
 
   getDishIds(): Observable<string[] | any> {
-    return this.getDishes().pipe(map(dishes => dishes.map(dish => dish.id)));
+    return this.getDishes()
+      .pipe(map(dishes => dishes.map(dish => dish.id)))
+      .pipe(catchError(err => err));
   }
 }
 

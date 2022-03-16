@@ -6,8 +6,12 @@
      fxLayoutGap="10px"
      fxLayoutGap.xs="0">
 
-  <div fxFlex [hidden]="dish">
+  <div fxFlex [hidden]="dish || errMsg">
     <mat-spinner></mat-spinner> <h4>Loading ... Please wait</h4>
+  </div>
+  <div fxFlex *ngIf="errMsg">
+    <h2>Error :</h2>
+    <h4>{{errMsg}}</h4>
   </div>
   <div *ngIf="dish">
     <div fxFlex="40">
