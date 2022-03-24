@@ -1,6 +1,6 @@
 // import { DISHES } from "../shared/dishes";
 import { Dish } from "../models/dish";
-import { Observable, of} from "rxjs";
+import { Observable} from "rxjs";
 // import { delay } from "rxjs/operators";
 import { map, catchError } from "rxjs/operators";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -89,7 +89,7 @@ export class DishService {
 
     // using http client
     return this.http
-      .get<Dish[]>(baseUrl + "dishees/?featured=true").pipe(map(dishes=> dishes[0]))
+      .get<Dish[]>(baseUrl + "dishes/?featured=true").pipe(map(dishes=> dishes[0]))
       .pipe(catchError(this.processHTTPMsgService.handleError))
   }
 

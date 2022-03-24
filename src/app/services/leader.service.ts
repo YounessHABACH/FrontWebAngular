@@ -1,51 +1,31 @@
 import { Injectable } from '@angular/core';
-import {LEADERS} from "../shared/leaders";
 import {Leader} from "../models/leader";
-import {Observable, of} from "rxjs";
-import { delay } from "rxjs/operators";
+import {Observable} from "rxjs";
+import {catchError, map} from "rxjs/operators";
+import {HttpClient} from "@angular/common/http";
+import {baseUrl} from "../shared/apiurl";
+import {ProcessHTTPMsgService} from "./process-httpmsg.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeaderService {
 
-  constructor() { }
+  constructor(private http: HttpClient,
+              private processHTTPMsgService: ProcessHTTPMsgService) { }
 
   getLeaders(): Observable<Leader[]> {
-    // return Promise.resolve(LEADERS);
-
-    // return new Promise<Leader[]>(resolve => {
-    //   setTimeout(() => {
-    //     resolve(LEADERS);
-    //   }, 5000)
-    // })
-
-    // @ts-ignore
-    return of(LEADERS).pipe(delay(0));
+    return this.http.get<Leader[]>(baseUrl + 'leadership')
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
-  getLeader(id: string): Observable<Leader> {
-    // return Promise.resolve(LEADERS.filter((leader) => leader.id === id)[0]);
-
-    // return new Promise<Leader>(resolve => {
-    //   setTimeout(() => {
-    //     resolve(LEADERS.filter((leader) => leader.id === id)[0]);
-    //   }, 5000)
-    // })
-
-    return of(LEADERS.filter((leader) => leader.id === id)[0]).pipe(delay(0));
+  getLeader(id: number): Observable<Leader> {
+    return this.http.get<Leader>(baseUrl + 'leadership/' + id)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   getFeaturedLeader(): Observable<Leader> {
-    // return Promise.resolve(LEADERS.filter((leader) => leader.featured)[0]);
-
-    // return new Promise<Leader>(resolve => {
-    //   setTimeout(() => {
-    //     resolve(LEADERS.filter((leader) => leader.featured)[0]);
-    //   }, 5000)
-    // })
-
-    // @ts-ignore
-    return of(LEADERS.filter((leader) => leader.featured)[0]).pipe(delay(0));
+    return this.http.get<Leader[]>(baseUrl + 'leadership?featured=true').pipe(map(leaders => leaders[0]))
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 }

@@ -1,5 +1,6 @@
 // import {Input} from '@angular/core';
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+// import { trigger, state, style, animate, transition } from '@angular/animations';
 import {Dish} from "../models/dish";
 import {Comment} from "../models/comment";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -7,11 +8,21 @@ import {Location} from "@angular/common";
 import {DishService} from "../services/dish.service";
 import {switchMap} from "rxjs/operators";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {expand, flyInOut, visibility} from "../animations/app.animations";
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.css']
+  styleUrls: ['./dishdetail.component.css'],
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+  },
+  animations: [
+    flyInOut(),
+    visibility(),
+    expand()
+  ]
 })
 
 export class DishdetailComponent implements OnInit {
@@ -23,8 +34,8 @@ export class DishdetailComponent implements OnInit {
   dishIds!: string[];
   prev!: string;
   next!: string;
-  commentForm!: FormGroup;
   @ViewChild('fform') commentFormDirective: any;
+  commentForm!: FormGroup;
   comment!: { author: string; rating: number; comment: string };
 
   formErrors = {
@@ -41,6 +52,9 @@ export class DishdetailComponent implements OnInit {
       'required': 'Comment is required !!'
     }
   };
+
+  // animation
+  visibility = 'shown'
 
   constructor(private route: ActivatedRoute,
               private dishService: DishService,
@@ -81,11 +95,16 @@ export class DishdetailComponent implements OnInit {
   getDishByParam(): void {
     this.route.params
       .pipe(
-        switchMap((params: Params) => this.dishService.getDish(params['id']))
+        // @ts-ignore
+        switchMap((params: Params) => {
+          this.visibility = "hidden";
+          return this.dishService.getDish(params['id'])
+        })
       ).subscribe(dish => {
         this.dish = dish;
         this.dishCopy = dish;
         this.setPreviousNext(dish.id!);
+        this.visibility = 'shown'
       }, error => {
         this.errMsg = <any> error
     });

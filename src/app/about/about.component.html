@@ -57,10 +57,10 @@
     <mat-spinner></mat-spinner> <h4>Loading ... Please wait</h4>
   </div>
 
-  <div fxFlex>
+  <div fxFlex [@expand]="">
     <mat-list>
       <mat-list-item *ngFor="let leader of leaders">
-        <img src="{{leader.image}}" matListAvatar alt="">
+        <img src="{{baseUrl + leader.image}}" matListAvatar alt="">
         <div matLine><strong>{{leader.name}}</strong></div>
         <div matLine>{{leader.abbr}}</div>
         <div matLine>{{leader.description}}</div>

@@ -1,52 +1,31 @@
 import { Promotion } from "../models/promotion";
-import { PROMOTIONS } from "../shared/promotions";
-import {Observable, of} from "rxjs"
-import { delay } from "rxjs/operators"
+import {Observable} from "rxjs"
+import {catchError, map} from "rxjs/operators"
 import {Injectable} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
+import {ProcessHTTPMsgService} from "./process-httpmsg.service";
+import {baseUrl} from "../shared/apiurl";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PromotionService {
 
-  constructor() { }
+  constructor(private http: HttpClient,
+              private processHTTPMsgService: ProcessHTTPMsgService) { }
 
   getPromotions(): Observable<Promotion[]> {
-    // return Promise.resolve(PROMOTIONS);
-
-    // return new Promise<Promotion[]>(resolve => {
-    //   setTimeout(() => {
-    //     resolve(PROMOTIONS);
-    //   }, 4000);
-    // })
-
-    // @ts-ignore
-    return of(PROMOTIONS).pipe(delay(0))
+    return this.http.get<Promotion[]>(baseUrl + 'promotions')
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
-  getPromotion(id: string): Observable<Promotion> {
-    // return Promise.resolve(PROMOTIONS.filter((promotion) => promotion.id === id)[0]);
-
-    // return new Promise<Promotion>(resolve => {
-    //   setTimeout(() => {
-    //     resolve(PROMOTIONS.filter((promotion) => promotion.id === id)[0]);
-    //   }, 4000);
-    // })
-
-    // @ts-ignore
-    return of(PROMOTIONS.filter((promotion) => promotion.id === id)[0]).pipe(delay(0))
+  getPromotion(id: number): Observable<Promotion> {
+    return this.http.get<Promotion>(baseUrl + 'promotions/' + id)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   getFeaturedPromotion(): Observable<Promotion> {
-    // return Promise.resolve(PROMOTIONS.filter((promotion) => promotion.featured)[0]);
-
-    // return new Promise<Promotion>(resolve => {
-    //   setTimeout(() => {
-    //     resolve(PROMOTIONS.filter((promotion) => promotion.featured)[0]);
-    //   }, 4000);
-    // })
-
-    // @ts-ignore
-    return of(PROMOTIONS.filter((promotion) => promotion.featured)[0]).pipe(delay(0))
+    return this.http.get<Promotion[]>(baseUrl + 'promotions?featured=true').pipe(map(promotion => promotion[0]))
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 }

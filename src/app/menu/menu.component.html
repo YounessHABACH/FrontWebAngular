@@ -16,9 +16,9 @@
     <h2>Error :</h2>
     <h4>{{errMsg}}</h4>
   </div>
-  <div fxFlex *ngIf="dishes">
+  <div fxFlex *ngIf="dishes" [@expand]="">
     <mat-grid-list cols="2" rowHeight="200px">
-      <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" highLight>
+      <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" appHighlightCustomDirective>
         <img height="200px" src="{{baseUrl + dish.image}}" alt="{{dish.name}} avatar">
         <mat-grid-tile-footer>
           <h1>{{dish.name | uppercase}}</h1>

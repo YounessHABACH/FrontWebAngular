@@ -1,17 +1,33 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { Feedback, ContactType } from "../models/feedback";
+import {flyInOut, visibility} from "../animations/app.animations";
+import {FeedbackService} from "../services/feedback.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  styleUrls: ['./contact.component.css'],
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+  },
+  animations: [
+    flyInOut(),
+    visibility()
+  ]
 })
 export class ContactComponent implements OnInit {
 
   feedback!: Feedback;
   feedbackForm!: FormGroup;
+  errMsg!: string
   contactTypes = ContactType;
+  waitingForResponse = false;
+  isHidden = false;
+  visibility = 'hidden';
+
   @ViewChild('fform') feedbackFormDirective: any;
 
   formErrors = {
@@ -20,7 +36,6 @@ export class ContactComponent implements OnInit {
     telnum: '',
     email: ''
   };
-
   validationMessages = {
     firstname: {
       'required': 'First name is required !!',
@@ -42,7 +57,10 @@ export class ContactComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+          private feedbackService: FeedbackService,
+          // private route: ActivatedRoute
+  ) {
     this.createForm()
   }
 
@@ -66,18 +84,33 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit() {
-    this.feedback = this.feedbackForm?.value
-    console.log(this.feedback)
-    this.feedbackForm?.reset({
+    this.waitingForResponse = true;
+    this.isHidden = true;
+    this.feedback = this.feedbackForm.value;
+    //  {firstname: "Maris", lastname: "Pulk", telnum: "0000", email: "marispulk@gmail.com", agree: true, …} - this.feedback võrdub see sisu
+    console.log(this.feedback);
+
+    this.feedbackService.submitFeedback(this.feedback)
+      .subscribe(feedbackResponse => {
+        this.waitingForResponse = false;
+        this.feedback = feedbackResponse;
+        this.visibility = 'shown';
+        setTimeout(() => {
+          this.visibility = 'hidden';
+          this.isHidden = false;
+        }, 5000)
+
+      });
+    this.feedbackFormDirective.resetForm();
+    this.feedbackForm.reset({
       firstname: '',
       lastname: '',
       telnum: 0,
       email: '',
       agree: false,
-      contactType: 'None',
+      contacttype: 'None',
       message: ''
-    })
-    this.feedbackFormDirective.resetForm()
+    });
   }
 
   onValueChanged() {

@@ -13,7 +13,7 @@
     <h2>Error :</h2>
     <h4>{{errMsg}}</h4>
   </div>
-  <div *ngIf="dish">
+  <div *ngIf="dish" [@visibility]="visibility" [@expand]="">
     <div fxFlex="40">
       <mat-card>
         <mat-card-header>
