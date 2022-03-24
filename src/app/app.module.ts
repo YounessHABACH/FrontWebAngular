@@ -39,6 +39,7 @@ import { MatSliderModule } from "@angular/material/slider";
 import { HttpClientModule } from "@angular/common/http";
 import { baseUrl } from "./shared/apiurl"
 import {ProcessHTTPMsgService} from "./services/process-httpmsg.service";
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import {ProcessHTTPMsgService} from "./services/process-httpmsg.service";
     ContactComponent,
     PageNotFoundComponent,
     LoginComponent,
+    HighlightDirective,
   ],
     imports: [
       BrowserModule,
