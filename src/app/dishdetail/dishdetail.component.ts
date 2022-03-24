@@ -1,5 +1,5 @@
 // import {Input} from '@angular/core';
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Dish} from "../models/dish";
 import {Comment} from "../models/comment";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -18,11 +18,13 @@ export class DishdetailComponent implements OnInit {
 
   // @Input()
   dish!: Dish;
+  dishCopy!: Dish
   errMsg!: string;
   dishIds!: string[];
   prev!: string;
   next!: string;
   commentForm!: FormGroup;
+  @ViewChild('fform') commentFormDirective: any;
   comment!: { author: string; rating: number; comment: string };
 
   formErrors = {
@@ -81,7 +83,9 @@ export class DishdetailComponent implements OnInit {
       .pipe(
         switchMap((params: Params) => this.dishService.getDish(params['id']))
       ).subscribe(dish => {
-        this.dish = dish; this.setPreviousNext(dish.id!);
+        this.dish = dish;
+        this.dishCopy = dish;
+        this.setPreviousNext(dish.id!);
       }, error => {
         this.errMsg = <any> error
     });
@@ -100,7 +104,18 @@ export class DishdetailComponent implements OnInit {
     if (comment.rating == 0)
       comment.rating = 1;
     // push to comments
-    this.dish.comments?.push(comment);
+    this.dishCopy.comments?.push(comment);
+    this.dishService.putDish(this.dishCopy).subscribe(
+      dish => {
+        this.dish = dish;
+        this.dishCopy = dish;
+      }, error => {
+        this.dish = null as any;
+        this.dishCopy = null as any;
+        this.errMsg = error;
+      }
+    )
+    this.resetForm()
   }
 
   onValueChanged() {
@@ -125,5 +140,14 @@ export class DishdetailComponent implements OnInit {
         }
       }
     }
+  }
+
+  private resetForm() {
+    this.commentFormDirective.resetForm()
+    this.commentForm?.reset({
+      author: '',
+      rating: 0,
+      comment: ''
+    })
   }
 }
